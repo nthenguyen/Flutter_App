@@ -2,6 +2,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cake_app/utils/colors.dart';
 import 'package:flutter_cake_app/utils/dimensions.dart';
+import 'package:flutter_cake_app/widgets/app_column.dart';
 import 'package:flutter_cake_app/widgets/big_text.dart';
 import 'package:flutter_cake_app/widgets/icon_and_text_widget.dart';
 import 'package:flutter_cake_app/widgets/small_text.dart';
@@ -264,53 +265,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                     top: Dimensions.height15,
                     left: Dimensions.width15,
                     right: Dimensions.width15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BigText(text: "Bánh kem Vanilla"),
-                    SizedBox(height: Dimensions.height10),
-                    Row(
-                      children: [
-                        Wrap(
-                          children: List.generate(
-                            5,
-                            (index) => Icon(
-                              Icons.star,
-                              color: AppColors.mainColor,
-                              size: 15,
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        SmallText(text: "4.5"),
-                        SizedBox(width: 10),
-                        SmallText(text: "1287"),
-                        SizedBox(width: 10),
-                        SmallText(text: "bình luận"),
-                      ],
-                    ),
-                    SizedBox(height: Dimensions.height20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconAndTextWidget(
-                          icon: Icons.circle_sharp,
-                          iconColor: AppColors.iconColor1,
-                          text: "Còn hàng",
-                        ),
-                        IconAndTextWidget(
-                          icon: Icons.location_on,
-                          iconColor: AppColors.mainColor,
-                          text: "1.7km",
-                        ),
-                        IconAndTextWidget(
-                          icon: Icons.access_time_rounded,
-                          iconColor: AppColors.iconColor2,
-                          text: "28 phút",
-                        ),
-                      ],
-                    )
-                  ],
+                child: AppColumn(
+                  text: "Bánh kem Vanilla",
                 ),
               ),
             ),
