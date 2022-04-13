@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cake_app/controllers/popular_product_controller.dart';
+import 'package:flutter_cake_app/pages/home/main_food_page.dart';
+import 'package:flutter_cake_app/utils/app_constants.dart';
 import 'package:flutter_cake_app/utils/colors.dart';
 import 'package:flutter_cake_app/utils/dimensions.dart';
 import 'package:flutter_cake_app/widgets/app_column.dart';
 import 'package:flutter_cake_app/widgets/app_icon.dart';
 import 'package:flutter_cake_app/widgets/big_text.dart';
 import 'package:flutter_cake_app/widgets/expandable_text_widget.dart';
+import 'package:get/get.dart';
 
 class PopularFoodDetail extends StatelessWidget {
-  const PopularFoodDetail({Key? key}) : super(key: key);
+  final int pageId;
+  const PopularFoodDetail({Key? key, required this.pageId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var product =
+        Get.find<PopularProductController>().popularProductList[pageId];
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -25,7 +32,9 @@ class PopularFoodDetail extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage("assets/image/cake1.jpg"),
+                  image: NetworkImage(
+                    AppConstants.BASE_URL + '/' + product.img!,
+                  ),
                 ),
               ),
             ),
@@ -38,7 +47,12 @@ class PopularFoodDetail extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppIcon(icon: Icons.arrow_back_ios),
+                GestureDetector(
+                  onTap: () {
+                    Get.to(() => MainFoodPage());
+                  },
+                  child: AppIcon(icon: Icons.arrow_back_ios),
+                ),
                 AppIcon(icon: Icons.shopping_cart_outlined),
               ],
             ),
@@ -48,7 +62,7 @@ class PopularFoodDetail extends StatelessWidget {
             left: 0,
             right: 0,
             bottom: 0,
-            top: Dimensions.popularFoodImgSize - 20,
+            top: Dimensions.popularFoodImgSize - 80,
             child: Container(
               padding: EdgeInsets.only(
                 left: Dimensions.width20,
@@ -65,16 +79,13 @@ class PopularFoodDetail extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AppColumn(text: "Bánh kem Vanilla"),
+                  AppColumn(text: product.name!),
                   SizedBox(height: Dimensions.height20),
                   BigText(text: "Giới thiệu"),
                   SizedBox(height: Dimensions.height20),
                   Expanded(
                     child: SingleChildScrollView(
-                      child: ExpandableTextWidget(
-                        text:
-                            "Bánh kem gato được làm bằng sô cô la. Nó có thể bao gồm các thành phần khác như fudge , creme vani và các chất tạo ngọt khác. Lịch sử bánh sô cô lla bắt nguồn từ thế kỷ 17, khi bột cacao từ châu Mỹ được thêm vào các công thức làm bánh truyền thống. Vào năm 1828, Coenraad van Houten ở Hà Lan đã phát triển một phương pháp chiết xuất cơ học để chiết xuất chất béo từ rượu cacao, tạo ra bơ cacao và một phần cacao đã khử chất béo, một khối chất rắn nén có thể được bán với tên gọi cacao đá hoặc nghiền thành bột. Các quy trình đã biến sô cô la từ một thứ xa xỉ độc quyền thành một món ăn nhẹ hàng ngày rẻ tiền. Ở Mỹ, bánh “sô cô la suy đồi” thịnh hành vào những năm 1980; trong những năm 1990, bánh sô cô la nóng chảy phục vụ một lần với các trung tâm sô cô la lỏng và sô cô la tẩm với các hương vị kỳ lạ như trà, cà ri, ớt đỏ, chanh dây và rượu sâm panh rất phổ biến. Phòng chờ sô-cô-la và những nhà sản xuất sô-cô-la thủ công rất phổ biến vào những năm 2000. Những chiếc bánh sô cô la béo ngậy, không bột mì, hoàn toàn không có bột mì là 'tiêu chuẩn hiện nay trong tiệm bánh pâtisserie hiện đại'. ",
-                      ),
+                      child: ExpandableTextWidget(text: product.description!),
                     ),
                   ),
                 ],
@@ -129,7 +140,7 @@ class PopularFoodDetail extends StatelessWidget {
                 bottom: Dimensions.height15,
               ),
               child: BigText(
-                text: "899k | Thêm vào giỏ",
+                text: "${product.price!}k | Thêm vào giỏ",
                 color: Colors.white,
               ),
               decoration: BoxDecoration(
