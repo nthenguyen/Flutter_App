@@ -117,7 +117,7 @@ class CartPage extends StatelessWidget {
                                             text: cartController
                                                     .getItems[index].price
                                                     .toString() +
-                                                "₫",
+                                                ".000₫",
                                             color: Colors.redAccent,
                                           ),
                                           Container(

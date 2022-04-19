@@ -153,7 +153,8 @@ class RecommendedFoodDetail extends StatelessWidget {
                       ),
                     ),
                     BigText(
-                      text: ' ${product.price!}k X ${controller.inCartItems}',
+                      text:
+                          ' ${product.price!}.000₫ X ${controller.inCartItems}',
                       color: AppColors.mainBlackColor,
                       size: Dimensions.font26,
                     ),
@@ -218,7 +219,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                           bottom: Dimensions.height15,
                         ),
                         child: BigText(
-                          text: "${product.price}₫ | Mua",
+                          text: "${product.price}.000₫ | Mua",
                           color: Colors.white,
                         ),
                         decoration: BoxDecoration(

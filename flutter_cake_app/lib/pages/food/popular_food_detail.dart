@@ -200,7 +200,7 @@ class PopularFoodDetail extends StatelessWidget {
                           popularProduct.addItem(product);
                         },
                         child: BigText(
-                          text: "${product.price!}₫ | Mua",
+                          text: "${product.price!}.000₫ | Mua",
                           color: Colors.white,
                         ),
                       ),
