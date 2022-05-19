@@ -13,6 +13,7 @@ import 'package:flutter_cake_app/widgets/app_icon.dart';
 import 'package:flutter_cake_app/widgets/big_text.dart';
 import 'package:flutter_cake_app/widgets/small_text.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -161,11 +162,12 @@ class CartPage extends StatelessWidget {
                                                           .spaceBetween,
                                                   children: [
                                                     BigText(
-                                                      text: cartController
+                                                      text: NumberFormat
+                                                              .currency(
+                                                                  locale: 'vi')
+                                                          .format(cartController
                                                               .getItems[index]
-                                                              .price
-                                                              .toString() +
-                                                          " ₫",
+                                                              .price),
                                                       color: Colors.redAccent,
                                                     ),
                                                     Container(
@@ -292,9 +294,8 @@ class CartPage extends StatelessWidget {
                       children: [
                         SizedBox(width: Dimensions.width10 / 2),
                         BigText(
-                            text: cartController.totalAmount.toString() +
-                                ".000" +
-                                " \đ"),
+                            text: NumberFormat.currency(locale: 'vi')
+                                .format(cartController.totalAmount)),
                         SizedBox(width: Dimensions.width10 / 2),
                       ],
                     ),

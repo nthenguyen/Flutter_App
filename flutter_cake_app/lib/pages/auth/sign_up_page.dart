@@ -21,7 +21,7 @@ class SignUpPage extends StatelessWidget {
     var passwordController = TextEditingController();
     var nameController = TextEditingController();
     var phoneController = TextEditingController();
-    var signUpImges = ["cake1.jpg", "cake2.jpg", "cake1.jpg"];
+    var signUpImges = ["f.png", "g.png", "t.jpg"];
 
     void _registration(AuthController authController) {
       // var authController = Get.find<AuthController>();
@@ -78,7 +78,7 @@ class SignUpPage extends StatelessWidget {
                             backgroundColor: Colors.white,
                             radius: 50,
                             backgroundImage:
-                                AssetImage("assets/image/cake1.jpg"),
+                                AssetImage("assets/image/logo.jpg"),
                           ),
                         ),
                       ),

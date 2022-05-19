@@ -11,6 +11,7 @@ import 'package:flutter_cake_app/widgets/app_icon.dart';
 import 'package:flutter_cake_app/widgets/big_text.dart';
 import 'package:flutter_cake_app/widgets/expandable_text_widget.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class RecommendedFoodDetail extends StatelessWidget {
   final int pageId;
@@ -18,7 +19,6 @@ class RecommendedFoodDetail extends StatelessWidget {
   const RecommendedFoodDetail(
       {Key? key, required this.pageId, required this.page})
       : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     var product =
@@ -161,8 +161,10 @@ class RecommendedFoodDetail extends StatelessWidget {
                       ),
                     ),
                     BigText(
-                      text:
-                          ' ${product.price!}.000₫ X ${controller.inCartItems}',
+                      text: NumberFormat.currency(locale: 'vi')
+                              .format(product.price!) +
+                          // ' ${product.price!}.000₫
+                          ' X ${controller.inCartItems}',
                       color: AppColors.mainBlackColor,
                       size: Dimensions.font26,
                     ),
@@ -227,7 +229,9 @@ class RecommendedFoodDetail extends StatelessWidget {
                           bottom: Dimensions.height15,
                         ),
                         child: BigText(
-                          text: "${product.price}.000₫ | Mua",
+                          text: NumberFormat.currency(locale: 'vi')
+                                  .format(product.price) +
+                              " | Mua",
                           color: Colors.white,
                         ),
                         decoration: BoxDecoration(

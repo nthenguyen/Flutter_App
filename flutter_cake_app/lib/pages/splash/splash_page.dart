@@ -61,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen>
                 scale: animation,
                 child: Center(
                   child: Image.asset(
-                    "assets/image/cake5.jpg",
+                    "assets/image/logo.jpg",
                     width: Dimensions.splashImg,
                   ),
                 ))

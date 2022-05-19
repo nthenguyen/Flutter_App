@@ -61,7 +61,7 @@ class SignInPage extends StatelessWidget {
                         child: CircleAvatar(
                           backgroundColor: Colors.white,
                           radius: 50,
-                          backgroundImage: AssetImage("assets/image/cake1.jpg"),
+                          backgroundImage: AssetImage("assets/image/logo.jpg"),
                         ),
                       ),
                     ),

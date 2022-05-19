@@ -173,7 +173,7 @@ class AccountPage extends StatelessWidget {
                                 BorderRadius.circular(Dimensions.radius20),
                             image: DecorationImage(
                                 fit: BoxFit.cover,
-                                image: AssetImage("assets/image/cake1.jpg"))),
+                                image: AssetImage("assets/image/logo.jpg"))),
                       ),
                       GestureDetector(
                         onTap: () {
