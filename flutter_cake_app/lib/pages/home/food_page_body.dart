@@ -134,8 +134,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                       },
                       child: Container(
                         margin: EdgeInsets.only(
-                          left: Dimensions.width20,
-                          right: Dimensions.width20,
+                          left: Dimensions.width15,
+                          right: Dimensions.width15,
                           bottom: Dimensions.height10,
                         ),
                         child: Row(
@@ -153,7 +153,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                   fit: BoxFit.cover,
                                   image: NetworkImage(
                                     AppConstants.BASE_URL +
-                                        "/" +
+                                        '/uploads/' +
                                         recommendedProducts
                                             .recommendedProductList[index].img!,
                                   ),
@@ -281,7 +281,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: NetworkImage(
-                    AppConstants.BASE_URL + "/" + popularProduct.img!,
+                    AppConstants.BASE_URL + "/uploads/" + popularProduct.img!,
                   ),
                 ),
               ),

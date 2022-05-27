@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cake_app/base/custom_loader.dart';
 import 'package:flutter_cake_app/controllers/auth_controller.dart';
 import 'package:flutter_cake_app/controllers/cart_controller.dart';
+import 'package:flutter_cake_app/controllers/location_controller.dart';
 import 'package:flutter_cake_app/controllers/user_controller.dart';
 import 'package:flutter_cake_app/routes/route_helper.dart';
 import 'package:flutter_cake_app/utils/colors.dart';
@@ -61,7 +62,7 @@ class AccountPage extends StatelessWidget {
                                     size: Dimensions.height10 * 5,
                                   ),
                                   bigText: BigText(
-                                    text: userController.userModel.name,
+                                    text: userController.userModel!.name,
                                   )),
                               //phone
                               SizedBox(
@@ -76,7 +77,7 @@ class AccountPage extends StatelessWidget {
                                     size: Dimensions.height10 * 5,
                                   ),
                                   bigText: BigText(
-                                    text: userController.userModel.phone,
+                                    text: userController.userModel!.phone,
                                   )),
                               //email
                               SizedBox(
@@ -91,23 +92,51 @@ class AccountPage extends StatelessWidget {
                                     size: Dimensions.height10 * 5,
                                   ),
                                   bigText: BigText(
-                                    text: userController.userModel.email,
+                                    text: userController.userModel!.email,
                                   )),
                               //address
                               SizedBox(
                                 height: Dimensions.height30,
                               ),
-                              AccountWidget(
-                                  appIcon: AppIcon(
-                                    icon: Icons.location_on,
-                                    backgroundColor: AppColors.yellowColor,
-                                    iconColor: Colors.white,
-                                    iconSize: Dimensions.height10 + 5 / 2,
-                                    size: Dimensions.height10 * 5,
-                                  ),
-                                  bigText: BigText(
-                                    text: userController.userModel.name,
-                                  )),
+                              GetBuilder<LocationController>(builder: (locationController){
+                                if(_userLoggedIn&& locationController.addressList.isEmpty){
+                                  return GestureDetector(
+                                    onTap: (){
+                                      Get.offNamed(RouteHelper.getAddressPage());
+                                    },
+                                    child: AccountWidget(
+                                          appIcon: AppIcon(
+                                            icon: Icons.location_on,
+                                            backgroundColor:
+                                                AppColors.yellowColor,
+                                            iconColor: Colors.white,
+                                            iconSize: Dimensions.height10 + 5 / 2,
+                                            size: Dimensions.height10 * 5,
+                                          ),
+                                          bigText: BigText(
+                                              // text: userController.userModel.name,
+                                              text: "Điền địa chỉ của bạn")),
+                                  );
+                                }else{
+                                  return GestureDetector(
+                                    onTap: (){
+                                      Get.offNamed(RouteHelper.getAddressPage());
+                                    },
+                                    child: AccountWidget(
+                                          appIcon: AppIcon(
+                                            icon: Icons.location_on,
+                                            backgroundColor:
+                                                AppColors.yellowColor,
+                                            iconColor: Colors.white,
+                                            iconSize: Dimensions.height10 + 5 / 2,
+                                            size: Dimensions.height10 * 5,
+                                          ),
+                                          bigText: BigText(
+                                              // text: userController.userModel.name,
+                                              text: "Địa chỉ của bạn")),
+                                  );
+                                }
+                              }),
                               //message
                               SizedBox(
                                 height: Dimensions.height30,
@@ -121,7 +150,7 @@ class AccountPage extends StatelessWidget {
                                     size: Dimensions.height10 * 5,
                                   ),
                                   bigText: BigText(
-                                    text: userController.userModel.name,
+                                    text: userController.userModel!.name,
                                   )),
                               //message
                               SizedBox(
@@ -136,6 +165,7 @@ class AccountPage extends StatelessWidget {
                                     Get.find<CartController>().clear();
                                     Get.find<CartController>()
                                         .clearCartHistory();
+                                    Get.find<LocationController>().clearAddressList();
                                     Get.offNamed(RouteHelper.getSignInPage());
                                   }
                                 },
@@ -148,7 +178,7 @@ class AccountPage extends StatelessWidget {
                                       size: Dimensions.height10 * 5,
                                     ),
                                     bigText: BigText(
-                                      text: "Logout",
+                                      text: "Đăng xuất",
                                     )),
                               )
                             ]),
@@ -164,7 +194,7 @@ class AccountPage extends StatelessWidget {
                     children: [
                       Container(
                         width: double.maxFinite,
-                        height: Dimensions.height20 * 5,
+                        height: Dimensions.height20*8,
                         margin: EdgeInsets.only(
                             left: Dimensions.width20,
                             right: Dimensions.width20),
@@ -173,7 +203,7 @@ class AccountPage extends StatelessWidget {
                                 BorderRadius.circular(Dimensions.radius20),
                             image: DecorationImage(
                                 fit: BoxFit.cover,
-                                image: AssetImage("assets/image/logo.jpg"))),
+                                image: AssetImage("assets/image/signintocontinue.png"))),
                       ),
                       GestureDetector(
                         onTap: () {

@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cake_app/base/no_data_page.dart';
+import 'package:flutter_cake_app/base/show_custom_snackbar.dart';
 import 'package:flutter_cake_app/controllers/auth_controller.dart';
 import 'package:flutter_cake_app/controllers/cart_controller.dart';
+import 'package:flutter_cake_app/controllers/location_controller.dart';
+import 'package:flutter_cake_app/controllers/order_controller.dart';
 import 'package:flutter_cake_app/controllers/popular_product_controller.dart';
 import 'package:flutter_cake_app/controllers/recommended_product_controller.dart';
+import 'package:flutter_cake_app/controllers/user_controller.dart';
+import 'package:flutter_cake_app/models/place_order_model.dart';
 import 'package:flutter_cake_app/pages/home/main_food_page.dart';
 import 'package:flutter_cake_app/routes/route_helper.dart';
 import 'package:flutter_cake_app/utils/app_constants.dart';
@@ -34,25 +39,29 @@ class CartPage extends StatelessWidget {
                     icon: Icons.arrow_back,
                     iconColor: Colors.white,
                     backgroundColor: AppColors.mainColor,
-                    size: Dimensions.iconSize24,
+                    // size: Dimensions.iconSize24,
+                    size: 30,
                   ),
                   SizedBox(width: Dimensions.width20 * 5),
                   GestureDetector(
                     onTap: () {
                       Get.toNamed(RouteHelper.getInitial());
                     },
-                    child: AppIcon(
+                    child:                    
+                     AppIcon(
                       icon: Icons.home_outlined,
                       iconColor: Colors.white,
                       backgroundColor: AppColors.mainColor,
-                      size: Dimensions.iconSize24,
+                      size: 30,
+                      
                     ),
                   ),
                   AppIcon(
                     icon: Icons.shopping_bag_outlined,
                     iconColor: Colors.white,
                     backgroundColor: AppColors.mainColor,
-                    size: Dimensions.iconSize24,
+                    // size: Dimensions.iconSize24,
+                    size: 30,
                   )
                 ],
               ),
@@ -128,7 +137,7 @@ class CartPage extends StatelessWidget {
                                               fit: BoxFit.cover,
                                               image: NetworkImage(
                                                 AppConstants.BASE_URL +
-                                                    '/' +
+                                                    AppConstants.UPLOAD_URL +
                                                     cartController
                                                         .getItems[index].img!,
                                               ),
@@ -304,11 +313,35 @@ class CartPage extends StatelessWidget {
                     onTap: () {
                       // popularProduct.addItem(product);
                       if (Get.find<AuthController>().userLoggedIn()) {
-                        cartController.addToHistory();
+                        if (Get.find<LocationController>()
+                            .addressList
+                            .isEmpty) {
+                          Get.toNamed(RouteHelper.getAddressPage());
+                        } else {
+                          // Get.offNamed(RouteHelper.getInitial());
+                          // Get.offNamed(RouteHelper.getPaymentPage("100127", Get.find<UserController>().userModel!.id));
+                          var location = Get.find<LocationController>().getUserAddress();
+                          var cart = Get.find<CartController>().getItems;
+                          var user = Get.find<UserController>().userModel;
+                          PlaceOrderBody placeOrder =  PlaceOrderBody(
+                            cart: cart,
+                            orderAmount: 100.0,
+                            orderNote: "Không phải bánh",
+                            address: location.address,
+                            latitude: location.latitude,
+                            longitude: location.longitude,
+                            contactPersonNumber:  user!.phone,
+                            contactPersonName: user.name,
+                            scheduleAt: '', distance: 10.0
+                          );
+                          Get.find<OrderController>().placeOrder(
+                            placeOrder,
+                            _callback
+                            );
+                        }
                       } else {
                         Get.toNamed(RouteHelper.getSignInPage());
                       }
-                      cartController.addToHistory();
                     },
                     child: Container(
                       padding: EdgeInsets.only(
@@ -338,5 +371,12 @@ class CartPage extends StatelessWidget {
             );
           },
         ));
+  }
+  void _callback(bool isSuccess, String message, String orderID){
+    if(isSuccess){
+ Get.offNamed(RouteHelper.getPaymentPage(orderID, Get.find<UserController>().userModel!.id));
+    }else{
+      showCustomSnackBar(message);
+    }
   }
 }

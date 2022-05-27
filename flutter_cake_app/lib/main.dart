@@ -11,6 +11,7 @@ import 'package:flutter_cake_app/pages/home/food_page_body.dart';
 import 'package:flutter_cake_app/pages/home/main_food_page.dart';
 import 'package:flutter_cake_app/pages/splash/splash_page.dart';
 import 'package:flutter_cake_app/routes/route_helper.dart';
+import 'package:flutter_cake_app/utils/colors.dart';
 import 'package:get/get.dart';
 import 'helper/dependencies.dart' as dep;
 
@@ -35,6 +36,10 @@ class MyApp extends StatelessWidget {
           //home: SignInPage(),
           initialRoute: RouteHelper.getSplashPage(),
           getPages: RouteHelper.routes,
+          theme: ThemeData(
+            primaryColor: AppColors.mainColor,
+            fontFamily: "Lato",
+          ),
         );
       });
     });

@@ -12,6 +12,7 @@ import 'package:flutter_cake_app/widgets/app_icon.dart';
 import 'package:flutter_cake_app/widgets/big_text.dart';
 import 'package:flutter_cake_app/widgets/expandable_text_widget.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class PopularFoodDetail extends StatelessWidget {
   final int pageId;
@@ -41,7 +42,7 @@ class PopularFoodDetail extends StatelessWidget {
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     image: NetworkImage(
-                      AppConstants.BASE_URL + '/' + product.img!,
+                      AppConstants.BASE_URL + '/uploads/' + product.img!,
                     ),
                   ),
                 ),
@@ -209,7 +210,9 @@ class PopularFoodDetail extends StatelessWidget {
                           popularProduct.addItem(product);
                         },
                         child: BigText(
-                          text: "${product.price!}.000₫ | Mua",
+                          text: NumberFormat.currency(locale: 'vi')
+                                  .format(product.price) +
+                              " | Mua",
                           color: Colors.white,
                         ),
                       ),
